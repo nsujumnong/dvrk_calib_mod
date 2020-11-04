@@ -49,7 +49,7 @@ rig2_rot = np.append(rig1_rot,rig1_rotw,1)
 rig2_pos = np.append(rig1_posx,rig1_posy,1)
 rig2_pos = np.append(rig1_pos,rig1_posz,1)
 
-arm_rot = rig1_rot
+arm_rot = rig2_rot
 marker_data_pos = rig1_pos
 marker_data_rot = rig1_rot
 
@@ -93,8 +93,8 @@ def _conca(positions, quaternion):
 
 p, f = _conca(marker_data_pos, marker_data_rot)
 
-print(p)
-print(f)
+# print(p)
+# print(f)
 
 a,b = np.shape(f)
 # print(a)
@@ -103,11 +103,11 @@ a,b = np.shape(f)
 limit_psm=[(-0.75, 0.75), (-0.50, 0.6)]
 limit_ecm=[(-0.75, 0.75), (-0.25, 0.75)]
 
-for i in range(a):
-    for j in range(b):
-        check = np.isnan(f[i,j])
-        if check == True:
-            print('the number at',i,j,'is nan')
+# for i in range(a):
+#     for j in range(b):
+#         check = np.isnan(f[i,j])
+#         if check == True:
+#             print('the number at',i,j,'is nan')
 
 f[42075,0] = (f[42072,0]+f[42078,0])/2
 f[42075,1] = (f[42072,1]+f[42078,1])/2
@@ -138,11 +138,11 @@ bpost = np.zeros((num,6))
 arm_rotations = np.zeros((num,4))
 
 for x in range(len(marker_data_pos)):
-    # p, f = _conca(marker_data_pos, marker_data_rot)
+    p, f = _conca(marker_data_pos, marker_data_rot)
     # print(p)
     j = np.linalg.pinv(f)
     bpost[x] = np.matmul(j, -p)
-    arm_rotations = arm_rot
+    arm_rotations[x] = arm_rot[x]
 
 
 # print(p)
