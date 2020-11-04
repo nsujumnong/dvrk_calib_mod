@@ -60,15 +60,16 @@ num = len(rig1_pos)
 # print(rig1_rot[0])
 # print(len(rig1_rot))
 
-# print('marker_data_pos[0]')
-# print(marker_data_pos[0])
-#
 # for i in range(len(rig1_rot)):
 # 	print(rig1_rot[i])
 # print('rig1_pos.shape')
 # print(rig1_pos.shape)
 # print(rig1_rot.shape)
-# x1 = tf.transformations.quaternion_matrix(marker_data_rot[0])
+print(marker_data_rot[:4])
+x1 = tf.transformations.quaternion_matrix(marker_data_rot[0:4])
+
+marker_data_rot = np.append(marker_data_rot,rig1_rot[1])
+print(marker_data_rot[:4])
 # print(x1)
 
 def _interface(self):
@@ -131,7 +132,9 @@ limit_ecm=[(-0.75, 0.75), (-0.25, 0.75)]
 
 # for i in range(len(f)):
 #     print(f[i])
-
+# arm = [None]*num
+# for i in range(num)
+#     arm[i] =
 
 # Calculate transformation
 bpost = np.zeros((num,6))
@@ -147,7 +150,7 @@ for x in range(len(marker_data_pos)):
     arm_rotations[x] = arm_rot[x]
     marker_data_pos = np.append(marker_data_pos,rig1_pos[x+1])
     marker_data_rot = np.append(marker_data_rot,rig1_rot[x+1])
-#
+
 
 # print(p)
 # print(f)
@@ -165,6 +168,5 @@ for x in range(len(marker_data_pos)):
 # traj_q1 = np.zeros((num, z))
 # traj_q2 = np.zeros((num, z2))
 #
-# arm = [None]*num
 # print(arm)
 # for i in range(num):
