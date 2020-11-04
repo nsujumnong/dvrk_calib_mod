@@ -50,8 +50,8 @@ rig2_pos = np.append(rig1_posx,rig1_posy,1)
 rig2_pos = np.append(rig1_pos,rig1_posz,1)
 
 arm_rot = rig2_rot
-marker_data_pos = rig1_pos
-marker_data_rot = rig1_rot
+marker_data_pos = rig1_pos[0]
+marker_data_rot = rig1_rot[0]
 
 num = len(rig1_pos)
 # print(rig1_rot)
@@ -60,15 +60,15 @@ num = len(rig1_pos)
 # print(rig1_rot[0])
 # print(len(rig1_rot))
 
-print('marker_data_pos[0]')
-print(marker_data_pos[0])
+# print('marker_data_pos[0]')
+# print(marker_data_pos[0])
 #
 # for i in range(len(rig1_rot)):
 # 	print(rig1_rot[i])
-print('rig1_pos.shape')
-print(rig1_pos.shape)
-print(rig1_rot.shape)
-x1 = tf.transformations.quaternion_matrix(marker_data_rot[0])
+# print('rig1_pos.shape')
+# print(rig1_pos.shape)
+# print(rig1_rot.shape)
+# x1 = tf.transformations.quaternion_matrix(marker_data_rot[0])
 # print(x1)
 
 def _interface(self):
@@ -91,12 +91,12 @@ def _conca(positions, quaternion):
 
         return array, matrix
 
-p, f = _conca(marker_data_pos, marker_data_rot)
+# p, f = _conca(marker_data_pos, marker_data_rot)
 
 # print(p)
 # print(f)
 
-a,b = np.shape(f)
+# a,b = np.shape(f)
 # print(a)
 # print(b)
 
@@ -109,15 +109,15 @@ limit_ecm=[(-0.75, 0.75), (-0.25, 0.75)]
 #         if check == True:
 #             print('the number at',i,j,'is nan')
 
-f[42075,0] = (f[42072,0]+f[42078,0])/2
-f[42075,1] = (f[42072,1]+f[42078,1])/2
-f[42075,2] = (f[42072,2]+f[42078,2])/2
-f[42076,0] = (f[42073,0]+f[42079,0])/2
-f[42076,1] = (f[42073,1]+f[42079,1])/2
-f[42076,2] = (f[42073,2]+f[42079,2])/2
-f[42077,0] = (f[42074,0]+f[42080,0])/2
-f[42077,1] = (f[42074,1]+f[42080,1])/2
-f[42077,2] = (f[42074,2]+f[42080,2])/2
+# f[42075,0] = (f[42072,0]+f[42078,0])/2
+# f[42075,1] = (f[42072,1]+f[42078,1])/2
+# f[42075,2] = (f[42072,2]+f[42078,2])/2
+# f[42076,0] = (f[42073,0]+f[42079,0])/2
+# f[42076,1] = (f[42073,1]+f[42079,1])/2
+# f[42076,2] = (f[42073,2]+f[42079,2])/2
+# f[42077,0] = (f[42074,0]+f[42080,0])/2
+# f[42077,1] = (f[42074,1]+f[42080,1])/2
+# f[42077,2] = (f[42074,2]+f[42080,2])/2
 
 # print(f[42072,0],f[42072,1],f[42072,2])
 # print(f[42075,0],f[42075,1],f[42075,2])
@@ -137,30 +137,34 @@ f[42077,2] = (f[42074,2]+f[42080,2])/2
 bpost = np.zeros((num,6))
 arm_rotations = np.zeros((num,4))
 
+# print(marker_data_pos[0])
+
 for x in range(len(marker_data_pos)):
     p, f = _conca(marker_data_pos, marker_data_rot)
     # print(p)
     j = np.linalg.pinv(f)
     bpost[x] = np.matmul(j, -p)
     arm_rotations[x] = arm_rot[x]
-
+    marker_data_pos = np.append(marker_data_pos,rig1_pos[x+1])
+    marker_data_rot = np.append(marker_data_rot,rig1_rot[x+1])
+#
 
 # print(p)
 # print(f)
 ## Run test
-rate = 100
-q1_num = 3
-final_time = 2
-tool_position = 0.15
-
-limit_q3 = tool_position
-tf = final_time
-z = q1_num
-z2 = rate*tf
-
-traj_q1 = np.zeros((num, z))
-traj_q2 = np.zeros((num, z2))
-
-arm = [None]*num
+# rate = 100
+# q1_num = 3
+# final_time = 2
+# tool_position = 0.15
+#
+# limit_q3 = tool_position
+# tf = final_time
+# z = q1_num
+# z2 = rate*tf
+#
+# traj_q1 = np.zeros((num, z))
+# traj_q2 = np.zeros((num, z2))
+#
+# arm = [None]*num
 # print(arm)
 # for i in range(num):
