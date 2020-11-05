@@ -17,22 +17,22 @@ print(filename)
 
 time = pd.read_csv(filename,usecols=[1],skiprows=7)
 #rigid body 1 (RCM)
-rig1_rotx = pd.read_csv(filename,usecols=[2],skiprows=7)
-rig1_roty = pd.read_csv(filename,usecols=[3],skiprows=7)
-rig1_rotz = pd.read_csv(filename,usecols=[4],skiprows=7)
-rig1_rotw = pd.read_csv(filename,usecols=[5],skiprows=7)
-rig1_posx = pd.read_csv(filename,usecols=[6],skiprows=7)
-rig1_posy = pd.read_csv(filename,usecols=[7],skiprows=7)
-rig1_posz = pd.read_csv(filename,usecols=[8],skiprows=7)
+rig1_rotx = pd.read_csv(filename,usecols=[2],skiprows=6)
+rig1_roty = pd.read_csv(filename,usecols=[3],skiprows=6)
+rig1_rotz = pd.read_csv(filename,usecols=[4],skiprows=6)
+rig1_rotw = pd.read_csv(filename,usecols=[5],skiprows=6)
+rig1_posx = pd.read_csv(filename,usecols=[6],skiprows=6)
+rig1_posy = pd.read_csv(filename,usecols=[7],skiprows=6)
+rig1_posz = pd.read_csv(filename,usecols=[8],skiprows=6)
 
 #rigid body 2 (rotation)
-rig2_rotx = pd.read_csv(filename,usecols=[22],skiprows=7)
-rig2_roty = pd.read_csv(filename,usecols=[23],skiprows=7)
-rig2_rotz = pd.read_csv(filename,usecols=[24],skiprows=7)
-rig2_rotw = pd.read_csv(filename,usecols=[25],skiprows=7)
-rig2_posx = pd.read_csv(filename,usecols=[26],skiprows=7)
-rig2_posy = pd.read_csv(filename,usecols=[27],skiprows=7)
-rig2_posz = pd.read_csv(filename,usecols=[28],skiprows=7)
+rig2_rotx = pd.read_csv(filename,usecols=[22],skiprows=6)
+rig2_roty = pd.read_csv(filename,usecols=[23],skiprows=6)
+rig2_rotz = pd.read_csv(filename,usecols=[24],skiprows=6)
+rig2_rotw = pd.read_csv(filename,usecols=[25],skiprows=6)
+rig2_posx = pd.read_csv(filename,usecols=[26],skiprows=6)
+rig2_posy = pd.read_csv(filename,usecols=[27],skiprows=6)
+rig2_posz = pd.read_csv(filename,usecols=[28],skiprows=6)
 
 #create array of data
 rig1_rot = np.append(rig1_rotx,rig1_roty,1)
@@ -42,18 +42,42 @@ rig1_rot = np.append(rig1_rot,rig1_rotw,1)
 rig1_pos = np.append(rig1_posx,rig1_posy,1)
 rig1_pos = np.append(rig1_pos,rig1_posz,1)
 
-rig2_rot = np.append(rig1_rotx,rig1_roty,1)
-rig2_rot = np.append(rig1_rot,rig1_rotz,1)
-rig2_rot = np.append(rig1_rot,rig1_rotw,1)
+rig2_rot = np.append(rig2_rotx,rig2_roty,1)
+rig2_rot = np.append(rig2_rot,rig2_rotz,1)
+rig2_rot = np.append(rig2_rot,rig2_rotw,1)
 
-rig2_pos = np.append(rig1_posx,rig1_posy,1)
-rig2_pos = np.append(rig1_pos,rig1_posz,1)
+rig2_pos = np.append(rig2_posx,rig2_posy,1)
+rig2_pos = np.append(rig2_pos,rig2_posz,1)
 
 arm_rot = rig2_rot
-marker_data_pos = rig1_pos[0]
-marker_data_rot = rig1_rot[0]
+print(np.shape(arm_rot))
+print("rig1_rot")
+print(rig1_rot)
+# print("arm_rot")
+# print(arm_rot)
+print(arm_rot[0][:])
+print(rig1_pos[0][:])
+
+# marker_data_pos = rig1_pos[0]
+# marker_data_rot = rig1_rot[0]
 
 num = len(rig1_pos)
+print(num)
+
+marker_data_pos = np.empty((0,3))
+marker_data_rot = np.zeros((1,4))
+print("marker_data_pos")
+print(marker_data_pos)
+print(np.shape(marker_data_pos))
+print(np.shape(rig1_pos[0]))
+marker_data_pos = np.append(marker_data_pos,rig1_pos[0],axis=0)
+print("marker_data_pos")
+print(marker_data_pos)
+for i in range(num):
+    marker_data_pos = np.append(marker_data_pos,rig1_pos[i][:],axis=0)
+    marker_data_rot = np.append(marker_data_rot,rig1_rot[i][:],axis=0)
+
+print(marker_data_pos)
 # print(rig1_rot)
 # print(rig1_pos)
 # print('1 rotation')
@@ -69,7 +93,8 @@ print(marker_data_rot[:4])
 x1 = tf.transformations.quaternion_matrix(marker_data_rot[0:4])
 
 marker_data_rot = np.append(marker_data_rot,rig1_rot[1])
-print(marker_data_rot[:4])
+print(marker_data_rot)
+print(np.shape(marker_data_rot))
 # print(x1)
 
 def _interface(self):
