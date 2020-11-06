@@ -84,15 +84,15 @@ marker_data_rot = np.zeros((1,4))
 # print(type(rig1_pos))
 # print(rig1_pos[0][0])
 
-for i in range(5):
+for i in range(num):
     pos = np.array([[rig1_pos[i][0],rig1_pos[i][1],rig1_pos[i][2]]])
     # print(pos)
     # print(np.shape(pos))
     rot = np.array([[rig1_rot[i][0],rig1_rot[i][1],rig1_rot[i][2],rig1_rot[i][3]]])
     marker_data_pos = np.append(marker_data_pos,pos,axis=0)
     marker_data_rot = np.append(marker_data_rot,rot,axis=0)
-    print(marker_data_pos)
-    print(marker_data_rot)
+    # print(marker_data_pos)
+    # print(marker_data_rot)
 
 # print(marker_data_pos)
 # print(rig1_rot)
@@ -109,7 +109,7 @@ for i in range(5):
 # print(marker_data_rot[:4])
 x1 = tf.transformations.quaternion_matrix(marker_data_rot[0][:])
 
-marker_data_rot = np.append(marker_data_rot,rig1_rot[1])
+# marker_data_rot = np.append(marker_data_rot,rig1_rot[1])
 print(marker_data_rot)
 print(np.shape(marker_data_rot))
 # print(x1)
