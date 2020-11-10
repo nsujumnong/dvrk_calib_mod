@@ -10,12 +10,14 @@ import csv
 import sys
 import tf
 import cloudpickle as pickle
-
+from pytictoc import TicToc
+import time
 
 filename = sys.argv[1]
 print(filename)
 
-time = pd.read_csv(filename,usecols=[1],skiprows=7)
+
+# time = pd.read_csv(filename,usecols=[1],skiprows=7)
 #rigid body 1 (RCM)
 rig1_rotx = pd.read_csv(filename,usecols=[2],skiprows=6)
 rig1_roty = pd.read_csv(filename,usecols=[3],skiprows=6)
@@ -61,8 +63,9 @@ arm_rot = rig2_rot
 # marker_data_pos = rig1_pos[0]
 # marker_data_rot = rig1_rot[0]
 
-num = len(rig1_pos)
-print(num)
+# num = len(rig1_pos)
+num = 500
+# print(num)
 
 marker_data_pos = np.zeros((1,3))
 marker_data_rot = np.zeros((1,4))
@@ -184,6 +187,7 @@ bpost = np.zeros((num,6))
 arm_rotations = np.zeros((num,4))
 
 # print(marker_data_pos[0])
+tic = time.clock()
 
 for x in range(num):
     pos = np.array([[rig1_pos[x][0],rig1_pos[x][1],rig1_pos[x][2]]])
@@ -197,7 +201,14 @@ for x in range(num):
     marker_data_rot = np.append(marker_data_rot,rot,axis=0)
     # print(marker_data_pos)
     # print(marker_data_rot)
+    print("loop:",x)
 
+toc = time.clock()
+
+timer = toc - tic
+
+print("time total:", timer)
+## 7000 data points take ~ 14 mins
 print("marker_data_pos")
 print(marker_data_pos)
 print("marker_data_rot")
@@ -206,6 +217,31 @@ print("bpost")
 print(bpost)
 print("arm_rotations")
 print(arm_rotations)
+
+print(np.shape(bpost))
+print(np.shape(arm_rotations))
+
+rows = np.zeros((num,10))
+fields = ['bpost_1','bpost_2','bpost_3','bpost_4','bpost_5','bpost_6','arm_rot_1','arm_rot_2','arm_rot_3','arm_rot_4']
+
+i=0
+data_array = np.array([[bpost[i][0],bpost[i][1],bpost[i][2],bpost[i][3],bpost[i][4],bpost[i][5],arm_rotations[i][0],arm_rotations[i][1],arm_rotations[i][2],arm_rotations[i][3]]])
+print(data_array)
+print(np.shape(data_array))
+
+for i in range(num):
+    data_array = np.array([[bpost[i][0],bpost[i][1],bpost[i][2],bpost[i][3],bpost[i][4],bpost[i][5],arm_rotations[i][0],arm_rotations[i][1],arm_rotations[i][2],arm_rotations[i][3]]])
+
+    rows[i][:] = data_array
+
+datafile = "calibrated_data.csv"
+
+with open(datafile, 'w') as csvfile:
+    csvwriter = csv.writer(csvfile)
+    csvwriter.writerow(fields)
+    csvwriter.writerows(rows)
+
+
 # print(p)
 # print(f)
 ## Run test
