@@ -51,7 +51,7 @@ rig2_pos = np.append(rig2_pos,rig2_posz,1)
 
 arm_rot = rig2_rot
 # num = len(rig1_pos)
-num = 500
+num = 7000
 # print(num)
 
 marker_data_pos = np.zeros((1,3))

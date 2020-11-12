@@ -64,7 +64,7 @@ arm_rot = rig2_rot
 # marker_data_rot = rig1_rot[0]
 
 # num = len(rig1_pos)
-num = 500
+num = 7000
 # print(num)
 
 marker_data_pos = np.zeros((1,3))
