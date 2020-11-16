@@ -10,7 +10,7 @@ import csv
 import sys
 import tf
 import cloudpickle as pickle
-from pytictoc import TicToc
+# from pytictoc import TicToc
 import time
 
 filename = sys.argv[1]
@@ -51,7 +51,7 @@ rig2_pos = np.append(rig2_pos,rig2_posz,1)
 
 arm_rot = rig2_rot
 # num = len(rig1_pos)
-num = 7000
+num = 10000
 # print(num)
 
 marker_data_pos = np.zeros((1,3))
@@ -125,7 +125,7 @@ for i in range(num):
 
     rows[i][:] = data_array
 
-datafile = "calibrated_data.csv"
+datafile = "calibrated_data_10000.csv"
 
 with open(datafile, 'w') as csvfile:
     csvwriter = csv.writer(csvfile)
