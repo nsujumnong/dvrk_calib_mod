@@ -125,7 +125,7 @@ for i in range(num):
 
     rows[i][:] = data_array
 
-datafile = "calibrated_data_10000.csv"
+datafile = "calibrated_data_psm2.csv"
 
 with open(datafile, 'w') as csvfile:
     csvwriter = csv.writer(csvfile)
