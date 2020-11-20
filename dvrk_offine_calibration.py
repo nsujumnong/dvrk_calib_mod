@@ -93,10 +93,12 @@ for x in range(num):
     pos = np.array([[rig1_pos[x][0],rig1_pos[x][1],rig1_pos[x][2]]])
     rot = np.array([[rig1_rot[x][0],rig1_rot[x][1],rig1_rot[x][2],rig1_rot[x][3]]])
     # arm_rot = np.array([[rig2_rot[x][0],rig2_rot[x][1],rig2_rot[x][2],rig2_rot[x][3]]])
+    # print(arm_rot)
     p, f = _conca(marker_data_pos, marker_data_rot)
     j = np.linalg.pinv(f)
     bpost[x] = np.matmul(j, -p)
-    # arm_rotations = np.append(arm_rotations,arm_rot,axis=0)
+    if x == 0:
+        arm_rotations[x] = arm_rotations[0]
     arm_rotations[x] = arm_rot[x]
     marker_data_pos = np.append(marker_data_pos,pos,axis=0)
     marker_data_rot = np.append(marker_data_rot,rot,axis=0)
