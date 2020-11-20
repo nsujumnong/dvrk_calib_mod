@@ -51,7 +51,7 @@ rig2_pos = np.append(rig2_pos,rig2_posz,1)
 
 arm_rot = rig2_rot
 # num = len(rig1_pos)
-num = 10000
+num = 500
 # print(num)
 
 marker_data_pos = np.zeros((1,3))
@@ -87,11 +87,16 @@ arm_rotations = np.zeros((num,4))
 tic = time.clock()
 
 for x in range(num):
+    check_nan = np.isnan(rig1_pos[x][0])
+    if check_nan == True:
+        x = x+1
     pos = np.array([[rig1_pos[x][0],rig1_pos[x][1],rig1_pos[x][2]]])
     rot = np.array([[rig1_rot[x][0],rig1_rot[x][1],rig1_rot[x][2],rig1_rot[x][3]]])
+    # arm_rot = np.array([[rig2_rot[x][0],rig2_rot[x][1],rig2_rot[x][2],rig2_rot[x][3]]])
     p, f = _conca(marker_data_pos, marker_data_rot)
     j = np.linalg.pinv(f)
     bpost[x] = np.matmul(j, -p)
+    # arm_rotations = np.append(arm_rotations,arm_rot,axis=0)
     arm_rotations[x] = arm_rot[x]
     marker_data_pos = np.append(marker_data_pos,pos,axis=0)
     marker_data_rot = np.append(marker_data_rot,rot,axis=0)
