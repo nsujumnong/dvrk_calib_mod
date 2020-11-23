@@ -1,4 +1,7 @@
 #!/usr/bin/env python
+# This calibration algorithm is a modification of Radian Azhar's (radianag)
+# dvrk calibration code for offline motion capture data.
+
 
 from numpy import genfromtxt
 import rospy
