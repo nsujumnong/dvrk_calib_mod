@@ -15,12 +15,19 @@ https://github.com/radianag/dvrk_calibrate
   - Pandas
 
 # Equipment
-- Motion Capture System (with software that convert data to .csv file)
+- Motion Capture System (with software that convert data to .csv file) (OptiTrack Motive is reccommended, since the code is optimized for its csv output file format)
 - dVRK system
 
 # Installation
 Only the python libraries in the dependencies are needed to be installed. And then you can run the
 python file normally
+
+
+# Usage
+To perform the calibration, we need motion capture data of two rigid bodies, the RCM frame and the rotation frame. When capturing the data, the RCM should be labeled as rigid body 1 and the rotation frame should be labeled as rigid body 2 as the program will read the data file in that order.
+
+To run the calibration program, simply run the python code as following
+
 ```
 python dvrk_offline_calibration.py [motioncapture_data_file.csv] [output_file_name.csv]
 ```
