@@ -22,12 +22,12 @@ https://github.com/radianag/dvrk_calibrate
 Only the python libraries in the dependencies are needed to be installed. And then you can run the
 python file normally
 ```
-python dvrk_offline_calibration.py [motioncapture_data_file.csv]
+python dvrk_offline_calibration.py [motioncapture_data_file.csv] [output_file_name.csv]
 ```
 
 # Example
 ```
-python dvrk_offline_calibration.py psm2_mocab.csv
+python dvrk_offline_calibration.py psm2_mocab.csv psm2_calibrated.csv
 ```
 which will return the calibrated psm2 data as csv file
 
