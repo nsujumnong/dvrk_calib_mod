@@ -26,6 +26,9 @@ python file normally
 # Usage
 To perform the calibration, we need motion capture data of two rigid bodies, the RCM frame and the rotation frame. When capturing the data, the RCM should be labeled as rigid body 1 and the rotation frame should be labeled as rigid body 2 as the program will read the data file in that order.
 
+![Image of PSM]
+(https://github.com/nsujumnong/dvrk_calib_mod/blob/master/Image/PSM_markers.jpg)
+
 To run the calibration program, simply run the python code as following
 
 ```
