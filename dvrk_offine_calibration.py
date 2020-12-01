@@ -17,6 +17,7 @@ import cloudpickle as pickle
 import time
 
 filename = sys.argv[1]
+outputfile = sys.argv[2]
 print(filename)
 
 #rigid body 1 (RCM)
@@ -53,8 +54,8 @@ rig2_pos = np.append(rig2_posx,rig2_posy,1)
 rig2_pos = np.append(rig2_pos,rig2_posz,1)
 
 arm_rot = rig2_rot
-# num = len(rig1_pos)
-num = 500
+num = len(rig1_pos)
+# num = 500
 # print(num)
 
 marker_data_pos = np.zeros((1,3))
@@ -126,7 +127,7 @@ print(np.shape(bpost))
 print(np.shape(arm_rotations))
 
 rows = np.zeros((num,10))
-fields = ['bpost_1','bpost_2','bpost_3','bpost_4','bpost_5','bpost_6','arm_rot_1','arm_rot_2','arm_rot_3','arm_rot_4']
+fields = ['RCM_pos_x','RCM_pos_y','RCM_pos_z','RCM_rot_x','RCM_rot_y','RCM_rot_z','Rotation_x','Rotation_y','Rotation_z','Rotation_w']
 
 ## Save calculated RCM position and rotation as CSV file
 
@@ -135,9 +136,7 @@ for i in range(num):
 
     rows[i][:] = data_array
 
-datafile = "calibrated_data_psm2.csv"
-
-with open(datafile, 'w') as csvfile:
+with open(outputfile, 'w') as csvfile:
     csvwriter = csv.writer(csvfile)
     csvwriter.writerow(fields)
     csvwriter.writerows(rows)
