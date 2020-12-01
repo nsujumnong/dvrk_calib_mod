@@ -20,7 +20,7 @@ https://github.com/radianag/dvrk_calibrate
 
 # Installation
 Only the python libraries in the dependencies are needed to be installed. And then you can run the
-python file normally
+python file normally. dvrk library is optional at the moment.
 
 
 # Usage
